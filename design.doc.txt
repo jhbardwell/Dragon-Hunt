@@ -1,0 +1,375 @@
+Videogame Design Document
+Knights and Dragon / Dragon Coord / Dragon Flame / Dragon Hunt
+Jeffrey Bardwell
+
+ENGAGEMENT
+- dark yet whimsical, fantasy elements
+
+ASSETS
+
+Static Visuals
+- button icons (dragon coiled in top left corner, click and the dragon flames)
+- coin icons
+- dragon
+- knights (green, golden, dark purple, royal blue, red)
+- forests
+
+Animations
+- dragon speared
+- dragon roar: spread wings, extend nexk into air, raise head and open jaws
+- knight burn
+- knight raise spear
+- knight shrug
+- forest burn: trees icon burn, then blackened, then vanish into blown ashes from top down
+
+Music
+- quiet male choir and drums with low growling in the background
+
+Sound
+- dragon roaring
+- dragon screeching
+- fire crackling
+- fire wooshing
+- knight cheering
+- knight grunting
+- knight screaming
+- spear thunking
+
+
+
+LAYOUT
+
+Title Screen
+----------------------------
++            
++             DRAGON  
++              COORD
++  
++     
++            NEW MAP   
++      
++          RESUME MAP (appear if relevant)
++ 
++  dragon roaring, knights arrayed around it overlaid on a slanted grid with rocks and trees...transition from color to cartogtraphy
++  
++          DRAGON PERKS
++  O - knight shuffle: x pts per Y    
++  O - knight kill: x pts per Y
++  O - forest kill: x pts per Y
++  O - turn kill: x pts per Y
++      
++          BUY POINTS
++      crossed spears icon
+----------------------------
+
+
+
+Level Screen
+----------------------------
++
++  MAP:           POINTS: 
++
++   [ ][ ][ ][D][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][C][ ][ ][ ]
++ dragon head ---->flame progression bar the less unblocked squares your are to your goal
++  --- subtitle text box-----
++ O- pts  O - pts  O - pts  O - pts
++      BUY POINTS
++  crossed spears icon
+----------------------------
+
+
+Configuration Screen 
+---------------------------
++  
++                
++           VOLUME
++ Dragon head (mute)
++ Dragon head ------> flaming notes on slider bar     
++ Dragon head-------> flaming crossed swords and curse icons on slider bar
++
++      
++         RESUME MAP   
++          
++          NEW MAP
++   
++
++         BUY POINTS
++   	
++   
++
++	  MAP CREATOR
++
++         
++            HELP
++   
+----------------------------
+
+
+Purchase Screen
+----------------------------
++  
++        
++           
++        
++  
++       
++   
++   
++   
++   
++  
++  
++   
++   
++   	
++  
++       
++
++  
+----------------------------
+
+
+Map Creation Screen
+----------------------------
++       Cartography Rules
++  1. D belongs in the top row.
++  2. C belongs in the bottom row.
++  3. You must place at least one of each type.
++  4. Place 10 pieces on the map.
++  5. No walls! You cannot isolate D from C with S.
++
++    Click and drag icons 
++ D = Dragon, C = cave, T = Town   
++  S = Stone,  F = Forest
++
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
++   [ ][ ][ ][ ][ ][ ][ ]
+
++
++  MAP NAME: ---- text box--
++  CREATOR NAME: ------text box------ 
++
++          SUBMIT MAP
++ ---error alert textbox----
+----------------------------
+
+
+Map Selection / win Screen
+----------------------------
++  [ MAP NAME] in glorious big typography
++        
++  Map Selection pull down menu        
++        
++  Histogram Selection with tabs (player placement on them...if applicable)
++       
++   
++   Freq Map score 
++   Freq Turns required       
++   Freq Knights matched
++   Freq Perks used
++   Freq Towns torched
++   Freq Tiles traveled
++           
++   
++   
++     SELECT [MAP NAME] 
++  
++        
++
++         
+----------------------------
+
+
+
+
+Help Screen
+----------------------------
++      
++  Lead the Dragon to the Cave by
++ --while avoid getting attacked by--
++   color matching Knights       
++        
++   Red Knights push you South    
++   Golden Knights push you West
++   Purple Knights push you North
++   Blue Knights push you East
++   Green Knights just attack you
++  
++   Earn perk points by ...
++    - Devouring people
++    - Eating livestock   
++   Spend perks points by ... 
++    - Using Dragon Perks
++   
++   Raise your game score by...
++   - Matching more Knights
++   - Torching Forests and Houses
++   - Reaching the Cave quickly  
++   
++ 
++  
+----------------------------
+
+
+MECHANICS
+
+Map Setup
+- Maps are created individually minus knights
+- Map difficulty is scored by algorithm based on obstacle density, type, and aggregation as well as  the path distance from the dragon to the cave
+- Maps presented to player randomly with their current score matched against a difficulty index
+- Goal: lead your dragon into cave by--while avoid getting attacked by--color matching knights
+
++       Cartography Rules
++  1. D belongs in the top row.
++  2. C belongs in the bottom row.
++  3. You must place at least one of each type.
++  4. Place 10 pieces on the map.
++  5. No walls! You cannot isolate D from C with S.
+
+- Example: 
+[ ][ ][ ][D][ ][ ][ ]
+[ ][ ][ ][S][S][ ][ ]
+[ ][ ][ ][ ][F][ ][ ]
+[ ][ ][ ][ ][ ][F][T]
+[ ][ ][ ][ ][ ][ ][T]
+[ ][ ][ ][ ][ ][ ][T]
+[ ][ ][S][ ][ ][ ][C]
+
+Static Elements
+- towns do not move or swap
+- forests do not move or swap
+- stones do not move or swap
+- cave does not move or swap
+the closer dragon gets to cave, the longer the "level flame" 
+
+Setup
+- Create empty 2D 7x7 array
+- Pull data from csv or randomly generate using ruleset
+- populate empty array with map data
+
+Progression
+Step 1: Initial
+- knights drop at random from top of map to fill gaps until victory or losing conditions met
+
+Step 2: Player Movement
+- player touches forest or stone
+	no movement
+- player touches dragon
+	no movement
+- player touches knight
+	knights can move vertically or horizontally one space and swap with adjacent knight
+- player moves knight one space horizontal/vertical direction to swap with another knight
+	- knights do not color match: swapped pieces return to previous places
+	- knights do color match along horizontal/vertical axes: proceed to next step
+
+Step 3: Matching Scores
+- match two equicolored knights horizontal/vertical
+	matched knights vanish
+	score increases by 50 x 0.05(score)
+- match three equicolored knights horizontal/vertical
+	matched knights vanish
+	score increases by 100 x 0.05(score)
+- match four or more equicolored knights horizontal/vertical
+	matched knights vanish
+	score increases by 350 x 0.05(score)
+- points increase = int[|(new score - old score)|/0.05(old score)]
+
+Step 4: Consequences
+- matching knights not adjacent to dragon
+	sound: knight grunting
+	knights vanish
+	remaining knights and dragon shift horizontally and/or fall vertically to fill the gaps
+- two matching knights horizontal/vertical adjacent dragon
+	sound: knight screaming
+	dragon pushed back up two rows
+	knights vanish
+	remaining knights shift horizontally and/or fall vertically to fill the gaps
+- three matching knights horizontal/vertical adjacent dragon
+	sound: knight cheering
+	animation: dragon speared
+	matched knights vanish
+	dragon vanishes
+	remaining knights shift horizontally and/or fall vertically to fill the gaps
+	map reset, score reset to initial score, points docked to match
+	points decrease = int[|(new score - old score)|/0.05(old score)]
+- four or more matching knights horizontal/vertical adjacent dragon
+	sound: spear thunking
+	animation: dragon death
+	new map, score reset to 0, points reset to 5
+- dragon lands horizontal/vertical adjacent to forest
+	sound: fire wooshing
+	animation: tree burn
+	trees vanish
+	remaining knights shift horizontally and/or fall vertically to fill the gaps
+- dragon lands horizontal/vertical adjacent to cave
+	animation: dragon roar
+	sound: dragon roaring
+	advance to new map
+
+Dragon Perks: golden coin with embossed icons and prices below
+- spinning coin icon: purchase extra points
+	5 points -  $5 x (1+ (0.05)score)
+ 	10 points - $10 x (1+ (0.05)score)
+	25 points - $25 x (1+ (0.05)score)
+	50 points - $45 x (1+ (0.05)score)
+- knight shuffle: 
+	icon: dragon flying with knight clutched in talons
+	effect: shuffle knights on map at random
+	cost: 10 pts x (1+ 0.05(score))
+- forest kill: 
+	icon: dragon spreading wings and flaming with tree in background
+	effect: destroy every tree on map
+	sound: fire wooshing
+	animation: tree burn
+	sound: fire crackling
+	cost: 5 pts per tree
+- knight kill: 
+	icon: dragon spreading wings and flaming with pile of discarded helmets in background
+	effect: destroy every knight whose color is most represented on map
+	sound: fire wooshing
+	animation: knight burn
+	sound: knight screaming
+	cost: 10 pts per equicolored knight
+- turn kill: 
+	icon: dragon bowled over by curving backwards arrow
+	effect: redo last move
+	cost: 15 pts x (1+ 0.05(score))
+
+Analytical Data Collection
+- Record how long it takes each player to clear each map
+- Record the highest level reached of each player
+- Record which dragon perks players use on which maps
+- Record how often players use each dragon perk
+- Record how much players spend to purchase each dragon perk
+- Record how many players purchase each dragon perk
+
+Mobile Wishlist
+- screen "shakes" when dragon roars
+- Different color dragons have different effects/skills
+- Map design contest
+
+PC Port Wishlist
+- Nix the microtransactions
+- Nix the match three dynamnic? Change to RTS?
+- 3D graphics
+- Expand map size, bigger square size to show off those graphics
+= Personalize your dragon like an RPG character
+- Dragon growth mechanic
+- More variables
+- Villages/Towns/Cities
+- Improved animations
+- Add City designer
+- Add screaming people fleeing when you destroy municipality
+- Add keyboard hotkeys,
+- Add Steam Achievements

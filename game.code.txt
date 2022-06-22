@@ -1,0 +1,158 @@
+
+
+main.gd
+---------------
+extends Node2D
+
+enum BUTTON {
+	BUYPOINTS,
+	NEWMAP,
+	RESUMEMAP,
+	SUBMITMAP,
+	KNIGHTSHUFFLE,
+	KNIGHTKILL,
+	FORESTKILL,
+	TURNKILL
+}
+
+enum COMMAND{
+	BUYPOINTS_5,
+	BUYPOINTS_10,
+	BUYPOINTS_25,
+	BUYPOINTS_50,
+	CREATORNAMEENTER,	
+	MAPNAMEENTER,
+	NEWMAP,
+	RESUMEMAP,
+	SELECTMAP,
+	SUBMITMAP,
+	SLIDELEFT,
+	SLIDERIGHT,
+	SLIDEUP,
+	SLIDEDOWN,
+	KNIGHTSHUFFLE,
+	KNIGHTKILL,
+	FORESTKILL,
+	TURNKILL
+}
+
+enum SETTING{
+	SUBTITLES,
+	FONTTYPESELECTION,
+	FONTSIZESELECTION,
+	BRIGHTNESSSELECTION,
+	CONTRASTSELECTION,
+	SCREENRESOLUTIONSELECTION,
+	SOUNDVOLUME,
+	MUSICVOLUME
+}
+
+# user input
+# memory management (queue free orphan nodes)
+
+levels.gd
+---------------
+extends main.gd
+
+enum MAPSTAT{
+	MAPBOUNCED,
+	MAPNAME,
+	MAPSCORE,
+	MAPCREATOR,
+	MAPRANK,
+	TURNSREQUIRED,
+	KNIGHTSMATCHED,
+	PERKSUSED,
+	TOWNSTORCHED,
+	TILESTRAVELED
+}
+
+enum PLAYERSTAT{	
+	ATTEMPTFREQ,
+	VICTORYFREQ,
+	KNIGHTSHUFFLEFREQ,
+	KNIGHTKILLFREQ,
+	FORESTKILLFREQ,
+	TURNKILLFREQ,
+	POINTSEARNED,
+	POINTSPURCHASED,
+	MONEYSPENT,
+	TIMESPENT	
+}
+
+gameplay.gd
+--------------
+extends main.gd
+
+enum GAMEPIECE{
+	BLUEKNIGHT,
+	GOLDKNIGHT,
+	GREENKNIGHT,
+	PURPLEKNIGHT,
+	REDKNIGHT
+}
+
+enum OBSTACLE{
+	CAVE,
+	DRAGON,
+	FOREST,
+	STONE,
+	TOWN
+}
+
+enum ANIMATION{
+	DRAGONDEATH,
+	DRAGONDODGE,
+	DRAGONFIRE,
+	DRAGONROAR,
+	BLUEKNIGHTATTACK,
+	GOLDKNIGHTATTACK,
+	GREENKNIGHTATTACK,
+	REDKNIGHTATTACK,
+	PURPLEKNIGHTATTACK
+}
+
+
+
+
+
+PSEUDOCODE
+------------------
+# algorithms needed
+# - game score calculation
+# - score to points conversion
+# - pathfinding AI
+
+
+
+SCENE TREE:
+	MAIN
+		LEVELS
+		GAMEPLAY
+
+
+MAIN (establish containers and UI parameters for everything here)
+- Splash Screen
+- Title Screen
+- Settings Screen
+- Purchase Screen
+- Map Creation Screen
+- Map Selection Screen
+- Help Screen
+- Credits Screen
+		
+	LEVELS
+	- Map Game Screen
+	- Map Database Array
+		
+	GAMPLAY
+	- Game loop code
+	- Game pieces
+		
+
+
+
+
+
+
+
